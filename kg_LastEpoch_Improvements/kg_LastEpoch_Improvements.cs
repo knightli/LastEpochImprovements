@@ -4,6 +4,7 @@ using Il2CppItemFiltering;
 using Il2CppLE.UI;
 using Il2CppTMPro;
 using MelonLoader;
+using static MelonLoader.MelonLogger;
 using Object = UnityEngine.Object;
 
 [assembly: MelonInfo(typeof(kg_LastEpoch_Improvements.kg_LastEpoch_Improvements), "kg.LastEpoch.Improvements", "1.3.5", "KG", "https://www.nexusmods.com/lastepoch/mods/8")]
@@ -156,6 +157,11 @@ public class kg_LastEpoch_Improvements : MelonMod
         {
             if (!rule.isEnabled || rule.type is Rule.RuleOutcome.HIDE) return false;
             if (ShowAll.Value) return true;
+            string ruleNameToLower = rule.nameOverride.ToLower();
+            int indexOfShow = ruleNameToLower.IndexOf("@show", StringComparison.Ordinal);
+            if (indexOfShow > 0) return true;
+            int indexOfHide = ruleNameToLower.IndexOf("@hide", StringComparison.Ordinal);
+            if (indexOfHide > 0) return false;
             return rule.emphasized;
         }
 
@@ -299,22 +305,22 @@ public class kg_LastEpoch_Improvements : MelonMod
                 CameraManager_Start_Patch.Switch();
             });
 #endif
-            __instance.CreateNewOption_EnumDropdown(CategoryName, "<color=green>Affix Show Roll (Tooltip)</color>", "Show affix roll on tooltip text", AffixShowRoll, (i) =>
+            __instance.CreateNewOption_EnumDropdown(CategoryName, "<color=green>显示风格(装备详情浮层)</color>", "装备词条可选附加T级和Roll值情况", AffixShowRoll, (i) =>
             {
                 AffixShowRoll.Value = (DisplayAffixType)i;
                 ImprovementsModCategory.SaveToFile();
             });
-            __instance.CreateNewOption_EnumDropdown(CategoryName, "<color=green>Affix Show Roll (Ground)</color>", "Show affix roll on ground text", ShowAffixOnLabel, (i) =>
+            __instance.CreateNewOption_EnumDropdown(CategoryName, "<color=green>显示风格(地面物品标签)</color>", "地面物品标签可选附加T级和Roll值情况", ShowAffixOnLabel, (i) =>
             {
                 ShowAffixOnLabel.Value = (DisplayAffixType_GroundLabel)i;
                 ImprovementsModCategory.SaveToFile();
             });
-            __instance.CreateNewOption(CategoryName, "<color=green>Map Filter Show All</color>", ShowAll, (tf) =>
+            __instance.CreateNewOption(CategoryName, "<color=green>地图上显示所有过滤器物品</color>", ShowAll, (tf) =>
             {
                 ShowAll.Value = tf;
                 ImprovementsModCategory.SaveToFile();
             });
-            __instance.CreateNewOption(CategoryName, "<color=green>Auto storage craft materials</color>", AutoStoreCraftMaterials, (ascm) =>
+            __instance.CreateNewOption(CategoryName, "<color=green>工艺材料自动入库</color>", AutoStoreCraftMaterials, (ascm) =>
             {
                 AutoStoreCraftMaterials.Value = ascm;
                 ImprovementsModCategory.SaveToFile();

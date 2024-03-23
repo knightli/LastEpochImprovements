@@ -132,7 +132,7 @@ public static class AffixRolls
         string color = GetItemRollRarityColor(value);
         string tierStr = tier > 0 ? $"<color={GetItemTierColor(tier)}>{tier}</color>" : "";
         string toInsert = $" <color={color}>[{value}%]</color>";
-        string letterText = $"[{tierStr}<color={GetItemRollRarityColorLetter(value)}>{GetItemRollRarityLetter(value)}</color>] ";
+        string letterText = $"{tierStr}<color={GetItemRollRarityColorLetter(value)}>{GetItemRollRarityLetter(value)}</color>   ";
 
         int lastNewLine = finishedString.LastIndexOf("\n", StringComparison.Ordinal);
         if (lastNewLine == -1) 
