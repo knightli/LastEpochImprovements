@@ -1,0 +1,1 @@
+copy /Y ".\bin\Release\net6.0\kg_LastEpoch_Improvements.dll" "D:\Program Files (x86)\Steam\steamapps\common\Last Epoch\Mods\kg_LastEpoch_Improvements.dll"
